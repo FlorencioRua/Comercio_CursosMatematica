@@ -1,0 +1,347 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="ComercioModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Cliente">
+          <Key>
+            <PropertyRef Name="ClienteId" />
+          </Key>
+          <Property Name="ClienteId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Nombres" Type="varchar" MaxLength="255" Nullable="false" />
+          <Property Name="Apellidos" Type="varchar" MaxLength="255" Nullable="false" />
+          <Property Name="Usuario" Type="varchar" MaxLength="255" Nullable="false" />
+          <Property Name="Clave" Type="varchar" MaxLength="255" Nullable="false" />
+          <Property Name="Correo" Type="varchar" MaxLength="255" />
+          <Property Name="Celular" Type="varchar" MaxLength="255" />
+          <Property Name="Direccion" Type="varchar(max)" />
+        </EntityType>
+        <EntityType Name="Curso">
+          <Key>
+            <PropertyRef Name="CursoId" />
+          </Key>
+          <Property Name="CursoId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Denominacion" Type="varchar" MaxLength="255" Nullable="false" />
+          <Property Name="Descripcion" Type="varchar(max)" Nullable="false" />
+          <Property Name="Precio" Type="decimal" Precision="16" Scale="2" Nullable="false" />
+          <Property Name="Activo" Type="bit" Nullable="false" />
+        </EntityType>
+        <EntityType Name="CursoImagen">
+          <Key>
+            <PropertyRef Name="CursoImagenId" />
+          </Key>
+          <Property Name="CursoImagenId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="CursoId" Type="int" Nullable="false" />
+          <Property Name="Imagen" Type="varchar" MaxLength="255" Nullable="false" />
+          <Property Name="Titulo" Type="varchar" MaxLength="255" />
+          <Property Name="Descripcion" Type="varchar(max)" />
+        </EntityType>
+        <EntityType Name="LlevarCurso">
+          <Key>
+            <PropertyRef Name="LlevarCursoId" />
+          </Key>
+          <Property Name="LlevarCursoId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ClienteId" Type="int" Nullable="false" />
+          <Property Name="Fecha" Type="datetime" Nullable="false" />
+          <Property Name="Estado" Type="char" MaxLength="3" Nullable="false" />
+        </EntityType>
+        <EntityType Name="LlevarCursoDetalle">
+          <Key>
+            <PropertyRef Name="LlevarCursoDetalle" />
+          </Key>
+          <Property Name="LlevarCursoDetalle" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="LlevarCursoId" Type="int" Nullable="false" />
+          <Property Name="CursoId" Type="int" Nullable="false" />
+        </EntityType>
+        <Association Name="FK__CursoImag__Curso__276EDEB3">
+          <End Role="Curso" Type="Self.Curso" Multiplicity="1" />
+          <End Role="CursoImagen" Type="Self.CursoImagen" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Curso">
+              <PropertyRef Name="CursoId" />
+            </Principal>
+            <Dependent Role="CursoImagen">
+              <PropertyRef Name="CursoId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__LlevarCur__Clien__2C3393D0">
+          <End Role="Cliente" Type="Self.Cliente" Multiplicity="1" />
+          <End Role="LlevarCurso" Type="Self.LlevarCurso" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Cliente">
+              <PropertyRef Name="ClienteId" />
+            </Principal>
+            <Dependent Role="LlevarCurso">
+              <PropertyRef Name="ClienteId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__LlevarCur__Curso__300424B4">
+          <End Role="Curso" Type="Self.Curso" Multiplicity="1" />
+          <End Role="LlevarCursoDetalle" Type="Self.LlevarCursoDetalle" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Curso">
+              <PropertyRef Name="CursoId" />
+            </Principal>
+            <Dependent Role="LlevarCursoDetalle">
+              <PropertyRef Name="CursoId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__LlevarCur__Lleva__2F10007B">
+          <End Role="LlevarCurso" Type="Self.LlevarCurso" Multiplicity="1" />
+          <End Role="LlevarCursoDetalle" Type="Self.LlevarCursoDetalle" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="LlevarCurso">
+              <PropertyRef Name="LlevarCursoId" />
+            </Principal>
+            <Dependent Role="LlevarCursoDetalle">
+              <PropertyRef Name="LlevarCursoId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="ComercioModelStoreContainer">
+          <EntitySet Name="Cliente" EntityType="Self.Cliente" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Curso" EntityType="Self.Curso" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="CursoImagen" EntityType="Self.CursoImagen" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="LlevarCurso" EntityType="Self.LlevarCurso" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="LlevarCursoDetalle" EntityType="Self.LlevarCursoDetalle" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK__CursoImag__Curso__276EDEB3" Association="Self.FK__CursoImag__Curso__276EDEB3">
+            <End Role="Curso" EntitySet="Curso" />
+            <End Role="CursoImagen" EntitySet="CursoImagen" />
+          </AssociationSet>
+          <AssociationSet Name="FK__LlevarCur__Clien__2C3393D0" Association="Self.FK__LlevarCur__Clien__2C3393D0">
+            <End Role="Cliente" EntitySet="Cliente" />
+            <End Role="LlevarCurso" EntitySet="LlevarCurso" />
+          </AssociationSet>
+          <AssociationSet Name="FK__LlevarCur__Curso__300424B4" Association="Self.FK__LlevarCur__Curso__300424B4">
+            <End Role="Curso" EntitySet="Curso" />
+            <End Role="LlevarCursoDetalle" EntitySet="LlevarCursoDetalle" />
+          </AssociationSet>
+          <AssociationSet Name="FK__LlevarCur__Lleva__2F10007B" Association="Self.FK__LlevarCur__Lleva__2F10007B">
+            <End Role="LlevarCurso" EntitySet="LlevarCurso" />
+            <End Role="LlevarCursoDetalle" EntitySet="LlevarCursoDetalle" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="ComercioModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="Cliente">
+          <Key>
+            <PropertyRef Name="ClienteId" />
+          </Key>
+          <Property Name="ClienteId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Nombres" Type="String" MaxLength="255" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Apellidos" Type="String" MaxLength="255" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Usuario" Type="String" MaxLength="255" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Clave" Type="String" MaxLength="255" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Correo" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="Celular" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="Direccion" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="LlevarCurso" Relationship="Self.FK__LlevarCur__Clien__2C3393D0" FromRole="Cliente" ToRole="LlevarCurso" />
+        </EntityType>
+        <EntityType Name="Curso">
+          <Key>
+            <PropertyRef Name="CursoId" />
+          </Key>
+          <Property Name="CursoId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Denominacion" Type="String" MaxLength="255" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Descripcion" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Precio" Type="Decimal" Precision="16" Scale="2" Nullable="false" />
+          <Property Name="Activo" Type="Boolean" Nullable="false" />
+          <NavigationProperty Name="CursoImagen" Relationship="Self.FK__CursoImag__Curso__276EDEB3" FromRole="Curso" ToRole="CursoImagen" />
+          <NavigationProperty Name="LlevarCursoDetalle" Relationship="Self.FK__LlevarCur__Curso__300424B4" FromRole="Curso" ToRole="LlevarCursoDetalle" />
+        </EntityType>
+        <EntityType Name="CursoImagen">
+          <Key>
+            <PropertyRef Name="CursoImagenId" />
+          </Key>
+          <Property Name="CursoImagenId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="CursoId" Type="Int32" Nullable="false" />
+          <Property Name="Imagen" Type="String" MaxLength="255" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Titulo" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="Descripcion" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="Curso" Relationship="Self.FK__CursoImag__Curso__276EDEB3" FromRole="CursoImagen" ToRole="Curso" />
+        </EntityType>
+        <EntityType Name="LlevarCurso">
+          <Key>
+            <PropertyRef Name="LlevarCursoId" />
+          </Key>
+          <Property Name="LlevarCursoId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ClienteId" Type="Int32" Nullable="false" />
+          <Property Name="Fecha" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="Estado" Type="String" MaxLength="3" FixedLength="true" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="Cliente" Relationship="Self.FK__LlevarCur__Clien__2C3393D0" FromRole="LlevarCurso" ToRole="Cliente" />
+          <NavigationProperty Name="LlevarCursoDetalle" Relationship="Self.FK__LlevarCur__Lleva__2F10007B" FromRole="LlevarCurso" ToRole="LlevarCursoDetalle" />
+        </EntityType>
+        <EntityType Name="LlevarCursoDetalle">
+          <Key>
+            <PropertyRef Name="LlevarCursoDetalle1" />
+          </Key>
+          <Property Name="LlevarCursoDetalle1" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="LlevarCursoId" Type="Int32" Nullable="false" />
+          <Property Name="CursoId" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Curso" Relationship="Self.FK__LlevarCur__Curso__300424B4" FromRole="LlevarCursoDetalle" ToRole="Curso" />
+          <NavigationProperty Name="LlevarCurso" Relationship="Self.FK__LlevarCur__Lleva__2F10007B" FromRole="LlevarCursoDetalle" ToRole="LlevarCurso" />
+        </EntityType>
+        <Association Name="FK__LlevarCur__Clien__2C3393D0">
+          <End Role="Cliente" Type="Self.Cliente" Multiplicity="1" />
+          <End Role="LlevarCurso" Type="Self.LlevarCurso" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Cliente">
+              <PropertyRef Name="ClienteId" />
+            </Principal>
+            <Dependent Role="LlevarCurso">
+              <PropertyRef Name="ClienteId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__CursoImag__Curso__276EDEB3">
+          <End Role="Curso" Type="Self.Curso" Multiplicity="1" />
+          <End Role="CursoImagen" Type="Self.CursoImagen" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Curso">
+              <PropertyRef Name="CursoId" />
+            </Principal>
+            <Dependent Role="CursoImagen">
+              <PropertyRef Name="CursoId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__LlevarCur__Curso__300424B4">
+          <End Role="Curso" Type="Self.Curso" Multiplicity="1" />
+          <End Role="LlevarCursoDetalle" Type="Self.LlevarCursoDetalle" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Curso">
+              <PropertyRef Name="CursoId" />
+            </Principal>
+            <Dependent Role="LlevarCursoDetalle">
+              <PropertyRef Name="CursoId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__LlevarCur__Lleva__2F10007B">
+          <End Role="LlevarCurso" Type="Self.LlevarCurso" Multiplicity="1" />
+          <End Role="LlevarCursoDetalle" Type="Self.LlevarCursoDetalle" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="LlevarCurso">
+              <PropertyRef Name="LlevarCursoId" />
+            </Principal>
+            <Dependent Role="LlevarCursoDetalle">
+              <PropertyRef Name="LlevarCursoId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="ComercioEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Cliente" EntityType="Self.Cliente" />
+          <EntitySet Name="Curso" EntityType="Self.Curso" />
+          <EntitySet Name="CursoImagen" EntityType="Self.CursoImagen" />
+          <EntitySet Name="LlevarCurso" EntityType="Self.LlevarCurso" />
+          <EntitySet Name="LlevarCursoDetalle" EntityType="Self.LlevarCursoDetalle" />
+          <AssociationSet Name="FK__LlevarCur__Clien__2C3393D0" Association="Self.FK__LlevarCur__Clien__2C3393D0">
+            <End Role="Cliente" EntitySet="Cliente" />
+            <End Role="LlevarCurso" EntitySet="LlevarCurso" />
+          </AssociationSet>
+          <AssociationSet Name="FK__CursoImag__Curso__276EDEB3" Association="Self.FK__CursoImag__Curso__276EDEB3">
+            <End Role="Curso" EntitySet="Curso" />
+            <End Role="CursoImagen" EntitySet="CursoImagen" />
+          </AssociationSet>
+          <AssociationSet Name="FK__LlevarCur__Curso__300424B4" Association="Self.FK__LlevarCur__Curso__300424B4">
+            <End Role="Curso" EntitySet="Curso" />
+            <End Role="LlevarCursoDetalle" EntitySet="LlevarCursoDetalle" />
+          </AssociationSet>
+          <AssociationSet Name="FK__LlevarCur__Lleva__2F10007B" Association="Self.FK__LlevarCur__Lleva__2F10007B">
+            <End Role="LlevarCurso" EntitySet="LlevarCurso" />
+            <End Role="LlevarCursoDetalle" EntitySet="LlevarCursoDetalle" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="ComercioModelStoreContainer" CdmEntityContainer="ComercioEntities">
+          <EntitySetMapping Name="Cliente">
+            <EntityTypeMapping TypeName="ComercioModel.Cliente">
+              <MappingFragment StoreEntitySet="Cliente">
+                <ScalarProperty Name="ClienteId" ColumnName="ClienteId" />
+                <ScalarProperty Name="Nombres" ColumnName="Nombres" />
+                <ScalarProperty Name="Apellidos" ColumnName="Apellidos" />
+                <ScalarProperty Name="Usuario" ColumnName="Usuario" />
+                <ScalarProperty Name="Clave" ColumnName="Clave" />
+                <ScalarProperty Name="Correo" ColumnName="Correo" />
+                <ScalarProperty Name="Celular" ColumnName="Celular" />
+                <ScalarProperty Name="Direccion" ColumnName="Direccion" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Curso">
+            <EntityTypeMapping TypeName="ComercioModel.Curso">
+              <MappingFragment StoreEntitySet="Curso">
+                <ScalarProperty Name="CursoId" ColumnName="CursoId" />
+                <ScalarProperty Name="Denominacion" ColumnName="Denominacion" />
+                <ScalarProperty Name="Descripcion" ColumnName="Descripcion" />
+                <ScalarProperty Name="Precio" ColumnName="Precio" />
+                <ScalarProperty Name="Activo" ColumnName="Activo" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="CursoImagen">
+            <EntityTypeMapping TypeName="ComercioModel.CursoImagen">
+              <MappingFragment StoreEntitySet="CursoImagen">
+                <ScalarProperty Name="CursoImagenId" ColumnName="CursoImagenId" />
+                <ScalarProperty Name="CursoId" ColumnName="CursoId" />
+                <ScalarProperty Name="Imagen" ColumnName="Imagen" />
+                <ScalarProperty Name="Titulo" ColumnName="Titulo" />
+                <ScalarProperty Name="Descripcion" ColumnName="Descripcion" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="LlevarCurso">
+            <EntityTypeMapping TypeName="ComercioModel.LlevarCurso">
+              <MappingFragment StoreEntitySet="LlevarCurso">
+                <ScalarProperty Name="LlevarCursoId" ColumnName="LlevarCursoId" />
+                <ScalarProperty Name="ClienteId" ColumnName="ClienteId" />
+                <ScalarProperty Name="Fecha" ColumnName="Fecha" />
+                <ScalarProperty Name="Estado" ColumnName="Estado" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="LlevarCursoDetalle">
+            <EntityTypeMapping TypeName="ComercioModel.LlevarCursoDetalle">
+              <MappingFragment StoreEntitySet="LlevarCursoDetalle">
+                <ScalarProperty Name="LlevarCursoDetalle1" ColumnName="LlevarCursoDetalle" />
+                <ScalarProperty Name="LlevarCursoId" ColumnName="LlevarCursoId" />
+                <ScalarProperty Name="CursoId" ColumnName="CursoId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="Ninguno" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>
