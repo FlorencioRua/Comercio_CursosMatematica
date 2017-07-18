@@ -7,6 +7,7 @@ using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using MundoTechMatematica.Models;
+using System.IO;
 
 namespace MundoTechMatematica.Areas.admin.Controllers
 {
@@ -114,6 +115,60 @@ namespace MundoTechMatematica.Areas.admin.Controllers
             db.SaveChanges();
             return RedirectToAction("Index");
         }
+
+        //
+        public JsonResult Adjuntar(int CursoId, HttpPostedFileBase documento)
+        {
+            var respuesta = new Models.ResponseModel
+            {
+                respuesta = true,
+                error = ""
+            };
+
+            if (documento != null)
+            {
+                string adjunto = DateTime.Now.ToString("yyyyMMddHHmmss") + Path.GetExtension(documento.FileName);
+                documento.SaveAs(Server.MapPath("~/ImgCursos/" + adjunto));
+
+                db.CursoImagen.Add(new CursoImagen { CursoId =CursoId, Imagen = adjunto, Titulo = "Ejemplo", Descripcion = "Ejemplo" });
+                db.SaveChanges();
+
+            }
+            else
+            {
+                respuesta.respuesta = false;
+                respuesta.error = "Debe adjuntar un documento";
+            }
+
+            return Json(respuesta);
+        }
+
+        public PartialViewResult Adjuntos(int CursoId)
+        {
+            return PartialView(db.CursoImagen.Where(x => x.CursoId == CursoId).ToList());
+        }
+
+
+        public JsonResult EliminarImagen(int CursoImagenId)
+        {
+            var rpt = new Models.ResponseModel()
+            {
+                respuesta = true,
+                error = ""
+            };
+            var img = db.CursoImagen.Find(CursoImagenId);
+
+            if (System.IO.File.Exists(Server.MapPath("~/ImgProductos/" + img.Imagen)))
+                System.IO.File.Delete(Server.MapPath("~/ImgProductos/" + img.Imagen));
+
+            db.CursoImagen.Remove(img);
+            db.SaveChanges();
+
+            return Json(rpt);
+        }
+
+        ///
+
 
         protected override void Dispose(bool disposing)
         {

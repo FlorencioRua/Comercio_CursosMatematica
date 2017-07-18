@@ -346,6 +346,7 @@
     <Content Include="js\ie9\html5shiv.min.js" />
     <Content Include="js\ie9\respond.min.js" />
     <Content Include="js\jquery-1.11.3.js" />
+    <Content Include="js\jquery.form.min.js" />
     <Content Include="js\main.js" />
     <Content Include="js\vendor\bootstrap.min.js" />
     <Content Include="js\vendor\fullcalendar.min.js" />
@@ -369,6 +370,7 @@
     <Content Include="fonts\glyphicons-halflings-regular.woff" />
     <Content Include="fonts\glyphicons-halflings-regular.ttf" />
     <Content Include="fonts\glyphicons-halflings-regular.eot" />
+    <Content Include="Areas\admin\Views\Curso\Adjuntos.cshtml" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
@@ -387,6 +389,7 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Areas\admin\adminAreaRegistration.cs" />
     <Compile Include="Areas\admin\Controllers\CursoController.cs" />
+    <Compile Include="Areas\admin\Models\ResponseModel.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -463,7 +466,7 @@
     </None>
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Areas\admin\Models\" />
+    <Folder Include="ImgCursos\" />
   </ItemGroup>
   <ItemGroup>
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />

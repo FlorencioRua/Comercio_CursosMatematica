@@ -45,12 +45,16 @@
                     @foreach (var item in Model)
                     {
 
+                        var imagen = @item.CursoImagen.FirstOrDefault();
+                        string img = imagen == null ? "no_disponible.jpg" : imagen.Imagen;
+
+
                     <div class="course">
                         <div class="course-inner shadow">
                             <div class="course-thumb">
                                 <a class="mini-zoom" href="single-course.html">
-                                    <img src="~/images/placeholder/course1.jpg" alt="" />
-                                    <img class="img-list" src="~/images/placeholder/course-list1.jpg" alt="" />
+                                    <img src="~/ImgCursos/@img" alt="" />
+                                    <img class="img-list" src="~/ImgCursos/@img" alt="" />
                                 </a>
                             </div><!-- .course-thumb -->
 
@@ -62,12 +66,7 @@
                                 <div class="course-desc">
                                     <p>Duis gravida tempus imperdiet. Vivamus elit vel consequat elementum. Cras consequat lorem non orci sagittis, eget volutpat neque imperdiet. Nam auctor nisi vitae enim accumsan, ac dignissim tortor consequat.</p>
                                 </div><!-- .course-desc -->
-
-                                <div class="course-author">
-                                    <a href="#"><img src="~/images/placeholder/user3.jpg" alt="" /></a>
-                                    <span>by <a href="#">Diana Hill</a></span>
-                                </div><!-- .course-author -->
-
+                            
                                 <div class="course-meta">
                                     <ul>
                                         <li>

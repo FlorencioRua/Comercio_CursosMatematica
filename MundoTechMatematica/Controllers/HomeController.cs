@@ -15,7 +15,7 @@ namespace MundoTechMatematica.Controllers
         {
             return View();
         }
-
+        //pruebas
         public ActionResult Buscar(string id="")
         {
             //acceso a base de datos

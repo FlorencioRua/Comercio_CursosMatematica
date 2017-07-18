@@ -9,7 +9,7 @@
         <EntityTypeShape EntityType="ComercioModel.Curso" Width="1.5" PointX="0.75" PointY="3.5" IsExpanded="true" />
         <EntityTypeShape EntityType="ComercioModel.CursoImagen" Width="1.5" PointX="3" PointY="3.625" IsExpanded="true" />
         <EntityTypeShape EntityType="ComercioModel.LlevarCurso" Width="1.5" PointX="0.75" PointY="8" IsExpanded="true" />
-        <EntityTypeShape EntityType="ComercioModel.LlevarCursoDetalle" Width="1.5" PointX="3" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="ComercioModel.LlevarCursoDetalle" Width="1.5" PointX="5.125" PointY="1" IsExpanded="true" />
         <AssociationConnector Association="ComercioModel.FK__LlevarCur__Clien__2C3393D0" ManuallyRouted="false" />
         <AssociationConnector Association="ComercioModel.FK__CursoImag__Curso__276EDEB3" ManuallyRouted="false" />
         <AssociationConnector Association="ComercioModel.FK__LlevarCur__Curso__300424B4" ManuallyRouted="false" />
