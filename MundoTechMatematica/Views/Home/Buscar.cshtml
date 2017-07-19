@@ -61,7 +61,7 @@
                             <div class="course-info">
                                 <span class="course-cat"><a href="#">Business</a></span>
 
-                                <h3 class="course-title"><a href="Cursodetalle">@item.Denominacion</a></h3>
+                                <h3 class="course-title">@Html.ActionLink(item.Denominacion, "Cursodetalle", new { id=item.CursoId })</h3>
 
                                 <div class="course-desc">
                                     <p>Duis gravida tempus imperdiet. Vivamus elit vel consequat elementum. Cras consequat lorem non orci sagittis, eget volutpat neque imperdiet. Nam auctor nisi vitae enim accumsan, ac dignissim tortor consequat.</p>

@@ -1,7 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net;
 using System.Web;
+using MundoTechMatematica.Models;
 using System.Web.Mvc;
 
 namespace MundoTechMatematica.Controllers
@@ -24,9 +26,20 @@ namespace MundoTechMatematica.Controllers
             return View(cursos);
         }
 
-        public ActionResult Cursodetalle()
+        public ActionResult Cursodetalle(int? id)
         {
-            return View();
+
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            Curso curso = bd.Curso.Find(id);
+            if (curso == null)
+            {
+                return HttpNotFound();
+            }
+            return View(curso);
+            
         }
 
         public ActionResult Nosotros()
