@@ -59,13 +59,17 @@
                             </div><!-- .course-thumb -->
 
                             <div class="course-info">
-                                <span class="course-cat"><a href="#">Business</a></span>
+                                
 
                                 <h3 class="course-title">@Html.ActionLink(item.Denominacion, "Cursodetalle", new { id=item.CursoId })</h3>
 
                                 <div class="course-desc">
                                     <p>Duis gravida tempus imperdiet. Vivamus elit vel consequat elementum. Cras consequat lorem non orci sagittis, eget volutpat neque imperdiet. Nam auctor nisi vitae enim accumsan, ac dignissim tortor consequat.</p>
                                 </div><!-- .course-desc -->
+
+                                <div class="course-author">
+                                    <span>Por @item.Profesor</span>
+                                </div><!-- .course-author -->
                             
                                 <div class="course-meta">
                                     <ul>
@@ -88,15 +92,14 @@
 
                 <nav class="pagination">
                     <ul>
-                        <li class="prev"><a href="#">Previous</a></li>
+                        <li class="prev"><a href="#">Anterior</a></li>
                         <li><span class="current">1</span></li>
                         <li><a href="#">2</a></li>
                         <li><a href="#">3</a></li>
-                        <li><a href="#">4</a></li>
-                        <li><a href="#">5</a></li>
+                      
                         <li><span>...</span></li>
                         <li><a href="#">68</a></li>
-                        <li class="next"><a href="#">Next</a></li>
+                        <li class="next"><a href="#">Siguiente</a></li>
 
                     </ul>
 
@@ -104,20 +107,9 @@
             </main><!-- .site-main -->
 
             <div id="sidebar" class="sidebar col-md-3">
-                <aside class="widget">
-                    <h3 class="widget-title">Book Categories</h3>
-                    <ul>
-                        <li><a href="#">Business Books</a></li>
-                        <li><a href="#">Technology Books</a></li>
-                        <li><a href="#">Medicine Books</a></li>
-                        <li><a href="#">Language Books</a></li>
-                        <li><a href="#">Biological Books</a></li>
-                        <li><a href="#">Architecture Books</a></li>
-                    </ul>
-                </aside><!-- .widget -->
-
+                
                 <aside class="widget courses-widget">
-                    <h3 class="widget-title">Popular courses</h3>
+                    <h3 class="widget-title">Cursos Populares</h3>
                     <div class="courses">
                         <ul>
                             <li>
@@ -148,7 +140,7 @@
                 </aside><!-- .widget -->
 
                 <aside class="widget blog-widget">
-                    <h3 class="widget-title">Latest News</h3>
+                    <h3 class="widget-title">Noticias Nuevas</h3>
                     <div class="courses">
                         <ul>
                             <li>

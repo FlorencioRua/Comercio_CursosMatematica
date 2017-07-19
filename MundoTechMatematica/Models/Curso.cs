@@ -26,6 +26,7 @@ namespace MundoTechMatematica.Models
         public string Descripcion { get; set; }
         public decimal Precio { get; set; }
         public bool Activo { get; set; }
+        public string Profesor { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<CursoImagen> CursoImagen { get; set; }

@@ -9,26 +9,16 @@
     <div class="container">
         <div class="row">
             <div id="main" class="site-main col-md-9">
-                <h1 class="post-title">@Html.DisplayFor(model => model.Denominacion)</h1>
-                <ul class="post-meta">
-                    <li><a href="#"><i class="fa fa-user"></i> Rose Nelson</a></li>
-                    <li><a href="#"><i class="fa fa-clock-o"></i> November 30, 2016</a></li>
-                    <li><a href="#"><i class="fa fa-bookmark"></i> Language</a></li>
-                </ul>
+                <h1 class="post-title" style="text-transform: uppercase; font-weight: bold;">@Html.DisplayFor(model => model.Denominacion)</h1>
+                
 
                 <a data-gal="prettyPhoto" href="https://www.youtube.com/watch?v=1GaMGdOQLvg" class="video">
                     <img src="~/images/placeholder/video3.jpg" alt="" />
                 </a><!-- .video -->
                 <br />
                 <div class="post-desc">
-                    <p>Duis gravida tempus imperdiet. Vivamus elit vel consequat elementum. Cras consequat lorem non orci sagittis, eget volutpat neque imperdiet. Nam auctor nisi vitae enim accumsan, ac dignissim tortor consequat.</p>
-                    <ul>
-                        <li>Vestibulum nibh purus, porta non molestie eget, laoreet orci. </li>
-                        <li>Nam malesuada dolor eget aliquet rhoncus</li>
-                        <li>Sed feugiat vestibulum mauris, at ultricies eros feugiat feugiat</li>
-                        <li>Aliquam lacinia urna vulputate molestie volutpat</li>
-                        <li>Aenean et orci eget neque faucibus iaculis feugiat sed sapien.</li>
-                    </ul>
+                    <p>@Html.DisplayFor(model => model.Descripcion)</p>
+                    
                 </div><!-- .post-desc -->
 
                 <ul class="course-list-table">
@@ -72,14 +62,14 @@
 
             <div class="col-md-3 sidebar">
                 <aside class="widget appply-form">
-                    <a href="#" class="button large full primary rounded apply-button">Apply now</a>
+                    <a onclick="AgregarCarrito" href="#" class="button large full primary rounded apply-button">Comprar ahora!</a>
                     <div class="course-detail">
                         <ul>
-                            <li>Price: <span class="price">$2139</span></li>
-                            <li>Lessons:  12</li>
-                            <li>Length:  12 hours</li>
-                            <li>Level:  Basic</li>
-                            <li>Category: <a href="#">Business</a></li>
+                            <li>Precio: <span class="price">S/. @Html.DisplayFor(model => model.Precio)</span></li>
+                            <li>Lecciones:  12</li>
+                            <li>Duración:  12 hours</li>
+          
+                            
                             <li>
                                 <div class="star-rating">
                                     <span style="width:80%"></span>
@@ -91,16 +81,16 @@
                 </aside>
 
                 <aside class="widget teacher-widget">
-                    <h3 class="widget-title">Teacher</h3>
+                    <h3 class="widget-title">Profesor</h3>
                     <div class="speaker">
                         <div class="speaker-thumb">
-                            <img src="~/images/placeholder/user14.jpg" alt="" />
+                            
                         </div><!-- .speaker-thumb -->
 
                         <div class="speaker-info">
-                            <span class="name">Rose Nelson</span>
-                            <span class="job">English teacher</span>
-                            <p>Nam tempus ipsum non magna varius imperdiet. Etiam non sapien id diam cursus rutrum. Nulla nec leo ultrices, porttitor dui vel ornare massa.</p>
+                            <span class="name">@Html.DisplayFor(model => model.Profesor)</span>
+                            
+                            <p>Profesores con alta calidad de enseñanza muy bien capacitados.</p>
                         </div><!-- .speaker-info -->
                         <div class="socials">
                             <ul>

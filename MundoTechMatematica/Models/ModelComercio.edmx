@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-      <Schema Namespace="ComercioModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+    <Schema Namespace="ComercioModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="Cliente">
           <Key>
             <PropertyRef Name="ClienteId" />
@@ -27,6 +27,7 @@
           <Property Name="Descripcion" Type="varchar(max)" Nullable="false" />
           <Property Name="Precio" Type="decimal" Precision="16" Scale="2" Nullable="false" />
           <Property Name="Activo" Type="bit" Nullable="false" />
+          <Property Name="Profesor" Type="varchar" MaxLength="50" Nullable="false" />
         </EntityType>
         <EntityType Name="CursoImagen">
           <Key>
@@ -126,8 +127,7 @@
             <End Role="LlevarCursoDetalle" EntitySet="LlevarCursoDetalle" />
           </AssociationSet>
         </EntityContainer>
-      </Schema>
-    </edmx:StorageModels>
+      </Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="ComercioModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
@@ -156,6 +156,7 @@
           <Property Name="Activo" Type="Boolean" Nullable="false" />
           <NavigationProperty Name="CursoImagen" Relationship="Self.FK__CursoImag__Curso__276EDEB3" FromRole="Curso" ToRole="CursoImagen" />
           <NavigationProperty Name="LlevarCursoDetalle" Relationship="Self.FK__LlevarCur__Curso__300424B4" FromRole="Curso" ToRole="LlevarCursoDetalle" />
+          <Property Name="Profesor" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
         </EntityType>
         <EntityType Name="CursoImagen">
           <Key>
@@ -283,6 +284,7 @@
           <EntitySetMapping Name="Curso">
             <EntityTypeMapping TypeName="ComercioModel.Curso">
               <MappingFragment StoreEntitySet="Curso">
+                <ScalarProperty Name="Profesor" ColumnName="Profesor" />
                 <ScalarProperty Name="CursoId" ColumnName="CursoId" />
                 <ScalarProperty Name="Denominacion" ColumnName="Denominacion" />
                 <ScalarProperty Name="Descripcion" ColumnName="Descripcion" />

@@ -47,7 +47,7 @@ namespace MundoTechMatematica.Areas.admin.Controllers
         // más información vea http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "CursoId,Denominacion,Descripcion,Precio,Activo")] Curso curso)
+        public ActionResult Create([Bind(Include = "CursoId,Denominacion,Descripcion,Precio,Activo,Profesor")] Curso curso)
         {
             if (ModelState.IsValid)
             {
@@ -79,7 +79,7 @@ namespace MundoTechMatematica.Areas.admin.Controllers
         // más información vea http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "CursoId,Denominacion,Descripcion,Precio,Activo")] Curso curso)
+        public ActionResult Edit([Bind(Include = "CursoId,Denominacion,Descripcion,Precio,Activo,Profesor")] Curso curso)
         {
             if (ModelState.IsValid)
             {
