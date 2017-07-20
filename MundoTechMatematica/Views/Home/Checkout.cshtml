@@ -91,29 +91,12 @@
                                         <th>Precio</th>
                                     </tr>
                                 </thead>
-                                <tbody>
-                                    <tr>
-                                        <td>Big Magic  x 1</td>
-                                        <td>$199.00</td>
-                                    </tr>
-
-                                    <tr>
-                                        <td>How We'll Live on Mars  x 1</td>
-                                        <td>$110.00</td>
-                                    </tr>
-                                </tbody>
+                                <tbody id="itemcarrito"></tbody>
                                 <tfoot>
-                                    <tr class="cart-subtotal">
-                                        <th>Subtotal</th>
-                                        <td><span class="amount">$300.00</span></td>
-                                    </tr>
-                                    <tr class="shipping">
-                                        <th>Shipping</th>
-                                        <td>Free Shipping</td>
-                                    </tr>
+                                    
                                     <tr class="order-total">
                                         <th>Total</th>
-                                        <td><span class="amount">$300.00</span></td>
+                                        <td><span id="totalCompra"  class="amount"></span></td>
                                     </tr>
                                 </tfoot>
                             </table>
@@ -143,7 +126,7 @@
                                     </div>
                                 </li>
                             </ul>
-                            <input type="button" value="Pagar" class="button large rounded full place-order" />
+                            <input type="button" value="CONFIRMAR & PAGAR" class="button large rounded full place-order" />
                             </form><!-- .checkout-payment -->
                         </div><!-- your-order -->
                     </div>
@@ -153,3 +136,61 @@
     </div><!-- .container -->
 </div><!-- .site-content -->
 
+@section scripts{
+    <script>
+        $(function () {
+            var carrito = localStorage.getItem("carrito");
+            var cursos = [];
+            if (carrito != null) {
+                cursos = JSON.parse(carrito);
+                CargarCursos(cursos);
+            }
+        });
+
+        function AgregarCarrito(cursoid, denominacion, imagen, precio) {
+            var carrito = localStorage.getItem("carrito");
+            var cursos = [];
+            if (carrito != null) {
+                cursos = JSON.parse(carrito);
+            }
+
+            var itemActual;
+            for (var i = 0; i < cursos.length; i++) {
+                if (cursos[i].CursoId == cursoid) {
+                    itemActual = cursos[i];
+                }
+            }
+
+            if (!itemActual) {
+                cursos.push({ CursoId: cursoid, Denominacion: denominacion, Precio: precio, Cantidad: 1, Imagen: imagen });
+            } else {
+                itemActual.Cantidad++;
+            }
+
+            var jsonStr = JSON.stringify(cursos);
+            localStorage.setItem("carrito", jsonStr);
+
+            CargarCursos(cursos);
+
+        }
+
+
+
+        function CargarCursos(cursos) {
+            var html = '';
+            var total = 0;
+
+            $.each(cursos, function () {
+                total += this.Precio * this.Cantidad
+                html += '<tr>' +
+                            '<td>' + this.Denominacion + '  x ' + this.Cantidad + '</td>' +
+                            '<td>S/. ' + this.Precio * this.Cantidad + '</td>' +
+                        '</tr>'
+            });
+            $('#itemcarrito').html(html);
+
+            $("#totalCompra").text('S/.' + total);
+        }
+
+</script>
+}

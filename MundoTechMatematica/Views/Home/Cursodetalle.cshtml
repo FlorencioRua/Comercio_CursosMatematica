@@ -1,5 +1,6 @@
 ﻿@model MundoTechMatematica.Models.Curso
 
+
 <div id="content" class="site-content">
     <div  >
      <br /><br /> <br /> <br /> <br /><br /><br />
@@ -17,7 +18,7 @@
                 </a><!-- .video -->
                 <br />
                 <div class="post-desc">
-                    <p>@Html.DisplayFor(model => model.Descripcion)</p>
+                   <p>@Html.DisplayFor(model => model.Descripcion)</p>
                     
                 </div><!-- .post-desc -->
 
@@ -59,11 +60,15 @@
                     </li>
                 </ul>
             </div><!-- .site-main -->
-
+           
             <div class="col-md-3 sidebar">
                 <aside class="widget appply-form">
-                    <a onclick="AgregarCarrito" href="#" class="button large full primary rounded apply-button">Comprar ahora!</a>
-                    <div class="course-detail">
+
+                    
+
+                    <a onclick="AgregarCarrito(@Model.CursoId,'@Model.Denominacion','@Model.CursoImagen.First().Imagen',@Model.Precio)" href="@Url.Action("Carrito","Home")" class="button large full primary rounded apply-button">Comprar ahora!</a>
+                    
+                    <div class="course-detail">                                                        
                         <ul>
                             <li>Precio: <span class="price">S/. @Html.DisplayFor(model => model.Precio)</span></li>
                             <li>Lecciones:  12</li>
@@ -105,3 +110,71 @@
         </div><!-- .row -->
     </div><!-- .container -->
 </div><!-- .site-content -->
+
+
+@section scripts{
+    <script>
+        $(function () {
+            var carrito = localStorage.getItem("carrito");
+            var cursos = [];
+            if (carrito != null) {
+                cursos = JSON.parse(carrito);
+                CargarCursos(cursos);
+            }
+        });
+
+        function AgregarCarrito(cursoid, denominacion, imagen, precio) {
+            var carrito = localStorage.getItem("carrito");
+            var cursos = [];
+            if (carrito != null) {
+                cursos = JSON.parse(carrito);
+            }
+
+            var itemActual;
+            for (var i = 0; i < cursos.length; i++) {
+                if (cursos[i].CursoId == cursoid) {
+                    itemActual = cursos[i];
+                }
+            }
+
+            if (!itemActual) {
+                cursos.push({ CursoId: cursoid, Denominacion: denominacion, Precio: precio, Cantidad: 1, Imagen: imagen });
+            } else {
+                itemActual.Cantidad++;
+            }
+
+            var jsonStr = JSON.stringify(cursos);
+            localStorage.setItem("carrito", jsonStr);
+
+            CargarCursos(cursos);
+
+        }
+
+
+
+        function CargarCursos(cursos) {
+            var html = '';
+            var total = 0;
+
+            $.each(cursos, function () {
+                total += this.Precio * this.Cantidad
+                html += '<tr>' +
+                                 '<td class="product-remove"><a href="#" class="remove"><i class="fa fa-times"></i></a></td>' +
+                                 '<td class="product-name"><a href="single-product.html"><img src="/ImgCursos/' + this.Imagen + '" alt="" /><span>' + this.Denominacion + '</span></a></td>' +
+                                 '<td class="product-price"><p class="price">S/. ' + this.Precio + '</p></td>' +
+                                 '<td class="quantity">' +
+                                 '        <input type="text" value="' + this.Cantidad + '" title="Qty" class="qty" size="4" />' +
+                                 '</td>' +
+                                 '<td class="product-subtotal">'+
+                                 '           <p id="totalCompra" class="price">0.00</p>'+
+                                  '</td>'+
+                                 '</tr>'
+            });
+            $('#itemcarrito').html(html);
+
+            $("#totalCompra").text('S/.' + total);
+        }
+
+</script>
+
+}

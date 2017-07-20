@@ -1,4 +1,6 @@
-﻿<div id="content" class="site-content shop-content">
+﻿@model MundoTechMatematica.Models.Curso
+
+<div id="content" class="site-content shop-content">
     <div class="page-title parallax-window" data-parallax="scroll" >
         <image src="~/images/placeholder/blog-title.jpg" ></image>
         <div class="container">
@@ -17,68 +19,22 @@
                                 <thead>
                                     <tr>
                                         <th></th>
-                                        <th class="product-name">Product</th>
-                                        <th>Price</th>
-                                        <th>Quantity</th>
-                                        <th>Total</th>
+                                        <th class="product-name">Curso</th>
+                                        <th>Precio</th>
+                                        <th>Cantidad</th>
+                                        <th>Subtotal</th>
                                     </tr>
                                 </thead>
 
-                                <tbody>
-                                    <tr>
-                                        <td class="product-remove">
-                                            <a href="#" class="remove"><i class="fa fa-times"></i></a>
-                                        </td>
-                                        <td class="product-name">
-                                            <a href="single-product.html">
-                                                <img src="~/images/placeholder/cart1.jpg" alt="" />
-                                                <span>Big Magic</span>
-                                            </a>
-                                        </td>
-                                        <td class="product-price">
-                                            <p class="price">$119.00</p>
-                                        </td>
-                                        <td>
-                                            <div class="quantity">
-                                                <input type="text" value="1" title="Qty" class="qty" size="4" />
-                                            </div>
-                                        </td>
-                                        <td class="product-subtotal">
-                                            <p class="price">$119.00</p>
-                                        </td>
-                                    </tr>
+                                <tbody id="itemcarrito"> </tbody>
 
-                                    <tr>
-                                        <td class="product-remove">
-                                            <a href="#" class="remove"><i class="fa fa-times"></i></a>
-                                        </td>
-                                        <td class="product-name">
-                                            <a href="single-product.html">
-                                                <img src="~/images/placeholder/cart2.jpg" alt="" />
-                                                <span>How We'll Live on Mars</span>
-                                            </a>
-                                        </td>
-                                        <td class="product-price">
-                                            <p class="price">$119.00</p>
-                                        </td>
-                                        <td>
-                                            <div class="quantity">
-                                                <input type="text" value="1" title="Qty" class="qty" size="4" />
-                                            </div>
-                                        </td>
-                                        <td class="product-subtotal">
-                                            <p class="price">$119.00</p>
-                                        </td>
-                                    </tr>
-
-                                    <tr>
-                                        <td class="product-action" colspan="5">
-                                            <input type="text" placeholder="Coupon code" class="pull-left" />
-                                            <input type="button" value="Apply Coupon" class="button primary rounded pull-left" />
-                                            <input type="button" value="Update Cart" class="button primary rounded pull-right" />
-                                        </td>
-                                    </tr>
-                                </tbody>
+                                <tr>
+                                    <td class="product-action" colspan="5">
+                                        <input type="text" placeholder="Código de cupón" class="pull-left" />
+                                        <input type="button" value="Aplicar Cupón" class="button primary rounded pull-left" />
+                                        <input type="button" value="Actualizar" class="button primary rounded pull-right" />
+                                    </td>
+                                </tr>
                             </table>
                         </div>
                         </form>
@@ -86,46 +42,18 @@
 
                     <div class="col-md-4">
                         <div class="cart-collaterals">
-                            <h2>Cart Totals</h2>
+                            <h2>Totales del carrito</h2>
                             <table>
                                 <tbody>
-                                    <tr class="cart-subtotal">
-                                        <th>Subtotal:</th>
-                                        <td><span class="amount">$229.00</span></td>
-                                    </tr>
-                                    <tr class="shipping">
-                                        <th>Shipping:</th>
-                                        <td>
-                                            <p>There are no shipping methods available. Please double check your address, or contact us if you need any help.</p>
-
-                                            <a class="shipping-calculator-button" href="#">Calculate Shipping</a>
-
-                                            <form action="#" method="get" accept-charset="utf-8" />
-                                            <div class="selectbox">
-                                                <select name="country">
-                                                    <option />Select a country...
-                                                    <option value="vietnam" />Vietnam
-                                                    <option value="us" />US
-                                                    <option value="uk" />UK
-                                                </select>
-                                            </div>
-
-                                            <input type="text" placeholder="State / country" />
-
-                                            <input type="text" placeholder="Post Code / Zip" />
-
-                                            <input type="button" value="Update Totals" class="button primary rounded" />
-                                            </form>
-                                        </td>
-                                    </tr>
+                                    
 
                                     <tr class="order-total">
-                                        <th>Total</th>
-                                        <td><span class="amount">$229.00</span></td>
+                                        <th>Total: </th>
+                                        <td><span id="totalCompra" class="amount"></span></td>
                                     </tr>
                                 </tbody>
                             </table>
-                            <a class="button large full rounded proceed-checkout" href="#">Proceed to Checkout <i class="fa fa-long-arrow-right"></i></a>
+                            <a class="button large full rounded proceed-checkout" href='@Url.Action("Checkout","Home")' >PROCESAR COMPRA <i class="fa fa-long-arrow-right"></i></a>
                         </div><!-- .cart-collaterals -->
                     </div>
                 </div><!-- .row -->
@@ -133,3 +61,70 @@
         </div><!-- .row -->
     </div><!-- .container -->
 </div><!-- .site-content -->
+
+@section scripts{
+<script>
+        $(function () {
+            var carrito = localStorage.getItem("carrito");
+            var cursos = [];
+            if (carrito != null) {
+                cursos = JSON.parse(carrito);
+                CargarCursos(cursos);
+            }
+        });
+
+        function AgregarCarrito(cursoid, denominacion, imagen, precio) {
+            var carrito = localStorage.getItem("carrito");
+            var cursos = [];
+            if (carrito != null) {
+                cursos = JSON.parse(carrito);
+            }
+
+            var itemActual;
+            for (var i = 0; i < cursos.length; i++) {
+                if (cursos[i].CursoId == cursoid) {
+                    itemActual = cursos[i];
+                }
+            }
+
+            if (!itemActual) {
+                cursos.push({ CursoId: cursoid, Denominacion: denominacion, Precio: precio, Cantidad: 1, Imagen: imagen });
+            } else {
+                itemActual.Cantidad++;
+            }
+
+            var jsonStr = JSON.stringify(cursos);
+            localStorage.setItem("carrito", jsonStr);
+
+            CargarCursos(cursos);
+
+        }
+
+
+
+        function CargarCursos(cursos) {
+            var html = '';
+            var total = 0;
+
+            $.each(cursos, function () {
+                total += this.Precio * this.Cantidad
+                html += '<tr>' +
+                                 '<td class="product-remove"><a href="#" class="remove"><i class="fa fa-times"></i></a></td>' +
+                                 '<td class="product-name"><a href="single-product.html"><img src="/ImgCursos/' + this.Imagen + '" width="110" height="110" alt="" /><span>' + this.Denominacion + '</span></a></td>' +
+                                 '<td class="product-price"><p class="price">S/. ' + this.Precio + '</p></td>' +
+                                 '<td class="quantity">' +
+                                 '        <input type="text" value="' + this.Cantidad + '" title="Qty" class="qty" size="4" />' +
+                                 '</td>' +
+                                 '<td  class="product-subtotal">' +
+                                 '           <p class="price">S/. ' + this.Precio * this.Cantidad + '</p>' +
+                                  '</td>'+
+                                 '</tr>'
+            });
+            $('#itemcarrito').html(html);
+
+            $("#totalCompra").text('S/.' + total);
+        }
+        
+</script>
+
+}
