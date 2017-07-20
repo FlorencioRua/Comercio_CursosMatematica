@@ -67,5 +67,23 @@ namespace MundoTechMatematica.Controllers
         {
             return View();
         }
+
+        [HttpPost]
+        public JsonResult RealizarPedido(List<Pedido> p)
+        {
+
+            return Json(true, JsonRequestBehavior.AllowGet);
+        }
+
+        public class Pedido
+        {
+            public int CursoId { get; set; }
+            public string Denominacion { get; set; }
+            public int Cantidad { get; set; }
+            public string Imagen { get; set; }
+            public decimal Precio { get; set; }
+        }
+
+
     }
 }

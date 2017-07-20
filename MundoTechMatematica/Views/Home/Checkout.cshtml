@@ -126,7 +126,7 @@
                                     </div>
                                 </li>
                             </ul>
-                            <input type="button" value="CONFIRMAR & PAGAR" class="button large rounded full place-order" />
+                            <input id="btnConfirmar" type="button" value="CONFIRMAR & PAGAR" class="button large rounded full place-order" />
                             </form><!-- .checkout-payment -->
                         </div><!-- your-order -->
                     </div>
@@ -145,7 +145,26 @@
                 cursos = JSON.parse(carrito);
                 CargarCursos(cursos);
             }
+
+
+            $("#btnConfirmar").click(function () {
+                $.ajax({
+                    type: 'POST',
+                    dataType: 'json',
+                    contentType: "application/json; charset=utf-8",
+                    url: '@Url.Action("RealizarPedido","Home")',
+                    data: carrito,
+                    success: function () {
+                        localStorage.removeItem("carrito");
+                        window.location = '@Url.Action("Buscar","Home")';
+                    }
+                });
+
+            });
         });
+
+        
+        
 
         function AgregarCarrito(cursoid, denominacion, imagen, precio) {
             var carrito = localStorage.getItem("carrito");
